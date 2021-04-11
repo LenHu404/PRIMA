@@ -89,27 +89,27 @@ var SpaceInvaders;
         }
     }
     function moveInvaders() {
-        if (moveIndex > 200) {
+        if (moveIndex > 100) {
             moveWay = false;
             timeToGoDown = true;
         }
-        if (moveIndex < -200) {
+        if (moveIndex < -100) {
             moveWay = true;
             timeToGoDown = true;
         }
         if (moveWay) {
-            invaders.mtxLocal.translateX(0.3 * ƒ.Loop.timeFrameReal / 1000);
+            invaders.mtxLocal.translateX(0.6 * ƒ.Loop.timeFrameReal / 1000);
             moveIndex++;
         }
         if (!moveWay) {
-            invaders.mtxLocal.translateX(-0.3 * ƒ.Loop.timeFrameReal / 1000);
+            invaders.mtxLocal.translateX(-0.6 * ƒ.Loop.timeFrameReal / 1000);
             moveIndex--;
         }
         if (timeToGoDown) {
-            invaders.mtxLocal.translateY(-0.5 * ƒ.Loop.timeFrameReal / 1000);
+            invaders.mtxLocal.translateY(-5 * ƒ.Loop.timeFrameReal / 1000);
             timeToGoDown = false;
         }
-        console.log(moveIndex);
+        //console.log(moveIndex);
     }
 })(SpaceInvaders || (SpaceInvaders = {}));
 //# sourceMappingURL=SpaceInvaders.js.map
