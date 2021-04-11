@@ -4,15 +4,16 @@ namespace L01_FirstFudge {
 
     window.addEventListener("load", init);
 
-    function init(_event: Event): void {
+    let node: f.Node = new f.Node("Test");
+    let viewport: f.Viewport = new f.Viewport();
 
-        let node: f.Node = new f.Node("Test");
+    function init(_event: Event): void {
+        node.addComponent(new f.ComponentTransform());
 
         const canvas: HTMLCanvasElement = document.querySelector("canvas");
 
         let mesh: f.MeshQuad = new f.MeshQuad("Quad");
         let cmpMesh: f.ComponentMesh = new f.ComponentMesh(mesh);
-        cmpMesh.mtxPivot.rotateY(25);
         node.addComponent(cmpMesh);
 
 
@@ -27,15 +28,23 @@ namespace L01_FirstFudge {
         cmpCamera.mtxPivot.translateZ(3);
         cmpCamera.mtxPivot.rotateY(180);
 
+        console.log(cmpCamera);
 
-        let viewport: f.Viewport = new f.Viewport();
         viewport.initialize("Viewport", node, cmpCamera, canvas);
         viewport.draw();
 
-        console.log(cmpCamera);
+        f.Loop.start(f.LOOP_MODE.TIME_REAL, 60);
+        f.Loop.addEventListener(f.EVENT.LOOP_FRAME, update);
 
-        // rotateQuad(node, cmpMesh);
 
+    }
+
+    function update(_event: Event): void {
+        // console.log(_event);
+        let rotSpeed: number = 90;
+        let timeSinceLastFrameInSeconds: number = f.Loop.timeFrameGame / 1000;
+        node.getComponent(f.ComponentMesh).mtxPivot.rotateZ(rotSpeed * timeSinceLastFrameInSeconds);
+        viewport.draw();
 
     }
 
