@@ -4,7 +4,7 @@ namespace SpaceInvaders {
   let viewport: ƒ.Viewport = new ƒ.Viewport();
   let ship: Ship;
   let speedShip: number = 5;
-
+  let velocityInvaders: number = 1;
   let projectiles: ƒ.Node = new ƒ.Node("Projectiles");
   let invaders: ƒ.Node = new ƒ.Node("Invaders");
   let barricades: ƒ.Node = new ƒ.Node("Barricades");
@@ -37,6 +37,9 @@ namespace SpaceInvaders {
     }
 
     space.addChild(invaders);
+
+    new timer : ƒ.Timer = ƒ.Timer(ƒ.Time.game, 500, 0, moveInvaders);
+
 
     //let barricades: ƒ.Node = new ƒ.Node("Barricades");
     let nBarricade: number = 4;
@@ -113,6 +116,14 @@ namespace SpaceInvaders {
   }
 
   function moveInvaders(): void {
+    invaders.mtxLocal.translate(velocityInvaders.toVector3());
+
+    let mtxInverse: ƒ.Matrix4x4 = ƒ.Matrix4x4.INVERSION(invaders.mtxLocal);
+    let position: ƒ.Vector3 = ship.mtxLocal.translation;
+    position.transform(mtxInverse, true);
+   }
+
+  function moveInvadersalt(): void {
     if (moveIndex > 100) {
       moveWay = false;
       timeToGoDown = true;
